@@ -13,7 +13,7 @@ import { coinsSliceSelector } from "../redux/coins/selectors";
 
 import { useStyles } from "../styles";
 import { useAppDispatch } from "../redux/store";
-import { fetchCoins } from "../redux/coins/slice";
+import { fetchCoins, setSelectedCoin } from "../redux/coins/slice";
 import { TCoin, TDiffCoin } from "../redux/coins/types";
 
 const tableLabels = ["", "Name", "Fullname", "Price", "Volume (24 hour)"];
@@ -35,7 +35,6 @@ export const TableCoins: React.FC = () => {
   const classes = useStyles();
   const dispatch = useAppDispatch();
   const { items, diffItems } = useSelector(coinsSliceSelector);
-  console.log(diffItems);
 
   React.useEffect(() => {
     try {
@@ -51,6 +50,10 @@ export const TableCoins: React.FC = () => {
     }
   }, []);
 
+  const onSelectCoin = (obj: TCoin) => {
+    dispatch(setSelectedCoin(obj));
+  };
+
   return (
     <Table>
       <TableHead>
@@ -64,7 +67,13 @@ export const TableCoins: React.FC = () => {
       </TableHead>
       <TableBody>
         {items.map((obj) => (
-          <TableRow key={obj.id}>
+          <TableRow
+            onClick={() => {
+              onSelectCoin(obj);
+            }}
+            key={obj.id}
+            className={classes.row}
+          >
             <TableCell align="left">
               <img className={classes.icon} src={obj.imageUrl} />
             </TableCell>

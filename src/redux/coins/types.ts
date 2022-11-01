@@ -15,6 +15,7 @@ export interface TCoinsSlice {
   status: CoinsStatus;
   items: TCoin[];
   diffItems: TDiffCoin;
+  selectedCoin: TCoin;
 }
 
 export enum CoinsStatus {

@@ -7,61 +7,64 @@ import {
   FormControl,
   Select,
   MenuItem,
-  Typography
 } from "@mui/material";
 
 import { useStyles } from "../styles";
+import { coinsSliceSelector } from "../redux/coins/selectors";
+import { useSelector } from "react-redux";
+import { TCoin } from "../redux/coins/types";
 
 export const Conventor: React.FC = ({}) => {
   const classes = useStyles();
+  const { items, selectedCoin } = useSelector(coinsSliceSelector);
+
+  const [selectedCoin2, setSelectedCoin2] = React.useState("USD");
 
   return (
     <Paper className={classes.inputs}>
       <div className={classes.inputItem}>
         <TextField
           id="outlined-basic"
-          label="Outlined"
+          label="Сумма"
           variant="outlined"
           sx={{ width: "70%" }}
         />
         <FormControl sx={{ width: "27%" }}>
-          <InputLabel id="demo-simple-select-label">Age</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={10}
-            label="Age"
-          >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+          <InputLabel id="demo-simple-select-label">
+            {(selectedCoin && selectedCoin.name) || ""}
+          </InputLabel>
+          <Select label="Валюта" value="">
+            {items.map((obj: TCoin) => (
+              <MenuItem key={obj.id} value={obj.name}>
+                {obj.name}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </div>
       <div className={classes.inputItem}>
         <TextField
           id="outlined-basic"
-          label="Outlined"
+          label="Сумма"
           variant="outlined"
           sx={{ width: "70%" }}
         />
         <FormControl sx={{ width: "27%" }}>
-          <InputLabel id="demo-simple-select-label">Age</InputLabel>
+          <InputLabel id="demo-simple-select-label">Валюта</InputLabel>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={10}
-            label="Age"
+            label="Валюта"
+            value={selectedCoin2}
+            onChange={(e) => setSelectedCoin2(e.target.value)}
           >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value="USD">USD</MenuItem>
+            {items.map((obj: TCoin) => (
+              <MenuItem key={obj.id} value={obj.name}>
+                {obj.name}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </div>
-      <Typography variant="h5" className={classes.title}>
-        h1. Heading
-      </Typography>
     </Paper>
   );
 };

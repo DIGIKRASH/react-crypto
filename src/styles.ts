@@ -24,4 +24,10 @@ export const useStyles = makeStyles({
   inputs: {
     padding: 20,
   },
+  row: {
+    cursor: "pointer",
+    "&:hover": {
+      backgroundColor: "rgba(0, 0, 0, 0.05)",
+    },
+  },
 });

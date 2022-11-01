@@ -42,20 +42,27 @@ const initialState: TCoinsSlice = {
   status: CoinsStatus.LOADING,
   items: [],
   diffItems: {},
+  selectedCoin: {
+    id: 0,
+    imageUrl: "",
+    name: "",
+    fullName: "",
+    price: "",
+    volume24hour: 0,
+  },
 };
 
 const coinsSlice = createSlice({
   name: "coins",
   initialState,
   reducers: {
-    setCoins(state, { payload }: PayloadAction<TCoin[]>) {
-      console.log("gg");
+    setSelectedCoin(state, { payload }: PayloadAction<TCoin>) {
+      state.selectedCoin = payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCoins.pending, (state) => {
       state.status = CoinsStatus.LOADING;
-      // state.items = [];
     });
     builder.addCase(fetchCoins.fulfilled, (state, { payload }) => {
       state.status = CoinsStatus.LOADED;
@@ -67,26 +74,22 @@ const coinsSlice = createSlice({
         const newObj = payload.find((o) => o.name === obj.name)!;
         const oldObj = state.items.find(
           (itemObj) => itemObj.name === newObj.name
-          )!;
-          
-          const color =
+        )!;
+
+        const color =
           newObj.price === oldObj.price
-          ? ""
-          : newObj.price > oldObj.price
-          ? "green"
-          : "red";
-          
+            ? ""
+            : newObj.price > oldObj.price
+            ? "green"
+            : "red";
+
         initObj[newObj.name] = color;
 
         return initObj;
       }, {});
-      
-      console.log("diffItems", JSON.stringify(state.diffItems));
-      console.log("items", JSON.stringify(state.items));
 
       state.items = payload;
-
-      console.log("items2", JSON.stringify(state.items));
+      state.selectedCoin = state.items[0];
 
       setTimeout(() => {
         state.diffItems = {};
@@ -94,11 +97,11 @@ const coinsSlice = createSlice({
     });
     builder.addCase(fetchCoins.rejected, (state) => {
       state.status = CoinsStatus.ERROR;
-      // state.items = [];
+      state.items = [];
     });
   },
 });
 
-export const { setCoins } = coinsSlice.actions;
+export const { setSelectedCoin } = coinsSlice.actions;
 
 export default coinsSlice.reducer;
