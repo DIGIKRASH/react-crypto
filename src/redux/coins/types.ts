@@ -3,13 +3,18 @@ export type TCoin = {
   imageUrl: string;
   name: string;
   fullName: string;
-  price: number;
+  price: string;
   volume24hour: number;
 };
 
+export type TDiffCoin = {
+  [key: string]: string;
+};
+
 export interface TCoinsSlice {
-  items: TCoin[];
   status: CoinsStatus;
+  items: TCoin[];
+  diffItems: TDiffCoin;
 }
 
 export enum CoinsStatus {

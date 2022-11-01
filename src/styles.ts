@@ -1,6 +1,5 @@
 import { makeStyles } from "@mui/styles";
 
-
 export const useStyles = makeStyles({
   root: {
     paddingTop: 35,
@@ -24,5 +23,5 @@ export const useStyles = makeStyles({
   },
   inputs: {
     padding: 20,
-  }
+  },
 });
