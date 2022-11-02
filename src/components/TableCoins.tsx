@@ -14,22 +14,9 @@ import { coinsSliceSelector } from "../redux/coins/selectors";
 import { useStyles } from "../styles";
 import { useAppDispatch } from "../redux/store";
 import { fetchCoins, setSelectedCoin } from "../redux/coins/slice";
-import { TCoin, TDiffCoin } from "../redux/coins/types";
+import { TCoin } from "../redux/coins/types";
 
-const tableLabels = ["", "Name", "Fullname", "Price", "Volume (24 hour)"];
-
-const arr2 = [
-  { id: "1182", name: "BTC", fullName: "Bitcoin", price: "20431.41" },
-  { id: "7605", name: "ETH", fullName: "Ethereum", price: "1575.02" },
-  { id: "4432", name: "DOGE", fullName: "Dogecoin", price: "0.13" },
-  { id: "932135", name: "BUSD", fullName: "BUSD", price: "1.00" },
-  { id: "204788", name: "BNB", fullName: "Binance Coin", price: "326.70" },
-  { id: "171986", name: "USDT", fullName: "Tether", price: "1.00" },
-  { id: "5031", name: "XRP", fullName: "XRP", price: "0.45" },
-  { id: "934443", name: "SOL", fullName: "Solana", price: "32.83" },
-  { id: "940776", name: "SHIB", fullName: "Shiba Inu", price: "0.00" },
-  { id: "309621", name: "LINK", fullName: "Chainlink", price: "7.98" },
-];
+const tableLabels = ["", "Название", "Полное название", "Цена", "Объем (24 часа)"];
 
 export const TableCoins: React.FC = () => {
   const classes = useStyles();
